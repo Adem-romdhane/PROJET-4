@@ -34,8 +34,8 @@ public class ParkingService {
 <span class="pc bpc" id="L34" title="2 of 4 branches missed.">            if (parkingSpot != null &amp;&amp; parkingSpot.getId() &gt; 0) {</span>
 <span class="fc" id="L35">                String vehicleRegNumber = getVehichleRegNumber();</span>
 <span class="fc" id="L36">                Ticket ticketExisting= ticketDAO.getTicket(vehicleRegNumber);</span>
-<span class="pc bpc" id="L37" title="1 of 2 branches missed.">                if(ticketExisting != null) {</span>
-<span class="nc" id="L38">                    System.out.println(&quot;Welcome back! As a recurring user of our parking lot, &quot;</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">                if(ticketExisting != null) {</span>
+<span class="fc" id="L38">                    System.out.println(&quot;Welcome back! As a recurring user of our parking lot, &quot;</span>
                             + &quot;you'll benefit from a 5% discount.&quot;);
                 }
 <span class="fc" id="L41">                parkingSpot.setAvailable(false);</span>
@@ -110,8 +110,8 @@ public class ParkingService {
 <span class="fc" id="L110">            Ticket ticket = ticketDAO.getTicket(vehicleRegNumber);</span>
 <span class="fc" id="L111">            int occurrenceTicket = ticketDAO.getOccurrenceTicket(vehicleRegNumber);</span>
 
-<span class="pc bpc" id="L113" title="1 of 2 branches missed.">            if (occurrenceTicket &gt; 1) {</span>
-<span class="nc" id="L114">                discount = true;</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">            if (occurrenceTicket &gt; 1) {</span>
+<span class="fc" id="L114">                discount = true;</span>
             }
 
 <span class="fc" id="L117">            Date outTime = new Date();</span>

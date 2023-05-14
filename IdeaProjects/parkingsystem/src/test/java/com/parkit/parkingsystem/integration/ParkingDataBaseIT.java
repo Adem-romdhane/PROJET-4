@@ -59,9 +59,8 @@ import static org.mockito.Mockito.when;
         Ticket abcdef = ticketDAO.getTicket("ABCDEF");
         Assertions.assertEquals("ABCDEF", abcdef.getVehicleRegNumber());
         Assertions.assertFalse(abcdef.getParkingSpot().isAvailable());
-
-
     }
+
 
     @Test
      void testParkingLotExit() {

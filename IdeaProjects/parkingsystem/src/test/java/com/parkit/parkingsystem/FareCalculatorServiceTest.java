@@ -112,7 +112,7 @@ import java.util.Date;
     }
 
     @Test
-     void calculateFareCarWithMoreThanADayParkingTime() {
+     void calculateFareCarWithMoreThanADayParkingTime() { // calcul du prix pour plus de 24h
         Date inTime = new Date();
         inTime.setTime(System.currentTimeMillis() - (24 * 60 * 60 * 1000));//24 hours parking time should give 24 * parking fare per hour
         Date outTime = new Date();
@@ -127,9 +127,24 @@ import java.util.Date;
 
 
     @Test
+    void calculateFareBikeWithMoreThanADayParkingTime() { // calcul du prix pour plus de 24h
+       Date inTime = new Date();
+       inTime.setTime(System.currentTimeMillis() - (24 * 60 * 60 * 1000));//24 hours parking time should give 24 * parking fare per hour
+       Date outTime = new Date();
+       ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE, false);
+
+       ticket.setInTime(inTime);
+       ticket.setOutTime(outTime);
+       ticket.setParkingSpot(parkingSpot);
+       fareCalculatorService.calculateFare(ticket, false);
+       assertEquals((24 * Fare.BIKE_RATE_PER_HOUR), ticket.getPrice());
+    }
+
+    @Test
      void calculateFareCarWithLessThan30minutesParkingTime() {
         Date inTime = new Date();
-        inTime.setTime(System.currentTimeMillis() - (30 * 60 * 1000));  //30 minutes parking time should give 0 * parking fare per hour (car fare)
+        inTime.setTime(System.currentTimeMillis() - (30 * 60 * 1000));  //30 minutes de stationnement
+       // devraient donner 0 * tarif de stationnement par heure (tarif voiture)
         Date outTime = new Date();
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
 
@@ -142,21 +157,22 @@ import java.util.Date;
 
     @Test
      void calculateFareForRecurringUsers() {
-        Ticket ticket1 = new Ticket();
-        ticket1.getVehicleRegNumber();
-        ticket1.setPrice(Fare.CAR_RATE_PER_HOUR-0.05);
-        ticket1.getPrice();
+        Ticket ticket1 = new Ticket(); //crée un nouvel objet Ticket nommé ticket1
+        ticket1.getVehicleRegNumber();//appelle la méthode getVehicleRegNumber() de l'objet ticket1
+        ticket1.setPrice(Fare.CAR_RATE_PER_HOUR-0.05);// SET  le prix de l'objet
+        ticket1.getPrice(); //appelle la méthode getPrice() de l'objet ticket1
 
 
-        Date inTime = new Date();
+        Date inTime = new Date(); //crée un nouvel objet Date nommé inTime, qui représente la date et l'heure actuelles
         Date outTime = new Date();
+        //crée un nouvel objet ParkingSpot nommé parkingSpot qui représente une place de parking pour une voiture
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
 
-        ticket.setInTime(inTime);
-        ticket.setOutTime(outTime);
-        ticket.setParkingSpot(parkingSpot);
-        fareCalculatorService.calculateFare(ticket, false);
-        assertEquals(0, ticket.getPrice());
+        ticket.setInTime(inTime); //définit la date et l'heure d'entrée de l'objet ticket à la valeur de inTime
+        ticket.setOutTime(outTime);// définit la date de sortie
+        ticket.setParkingSpot(parkingSpot); // définit la place de parking utilisée par l'objet ticket
+        fareCalculatorService.calculateFare(ticket, false); // appelle la méthode calculateFare() du service de calcul de tarifs de stationnement en passant l'objet ticket et la valeur false pour le paramètre recurringUser
+        assertEquals(0, ticket.getPrice()); //vérifie que le prix calculé vaut bien zéro
     }
 
     @Test
